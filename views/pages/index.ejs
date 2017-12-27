@@ -11,59 +11,68 @@
     </header>
 
     <main role="main">
+        <!-- .jumbotron -->
         <div class="jumbotron">
+            <!-- .container -->
             <div class="container">
                 <h1>GitHub Followers Lookup</h1>
                 <p>Enter a GitHub username to see their followers</p>
-                
                 <!-- SEARCH BAR -->
                 <div class="row">
                     <div class="col">
-                        <div class="input-group">
-                            <input type="query" name="username" id="search-user" class="form-control" placeholder="Search for github username..." aria-label="Search for github username...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="submit">Search</button>
-                            </span>
-                        </div>
+                        <form id="search-form" action="/search" method="POST">
+                            <div class="input-group">
+                                <input type="query" name="username" id="search-user" class="form-control" placeholder="Search for github username..." aria-label="Search for github username...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="submit">Search</button>
+                                </span>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- END SEARCH BAR -->
-
             </div>
             <!-- END .container  -->
         </div>
         <!-- END .jumbotron -->
 
         <!-- Search results -->
-        <div class="container">
-            <div id="search-user-results">
-                <div class="card" style="width: 20rem;">
-                    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                    <div class="card-body">
-                        <a href="#" target="_blank">
-                            <h4 class="card-title">username</h4>
-                        </a>
-                        <p class="card-text">First Name Last Name</p>
-                        <p class="card-text">number of followers</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <a href="#" target="_blank">
-                            <li class="list-group-item">Follower1</li>
-                        </a>
-                        <a href="#" target="_blank">
-                            <li class="list-group-item">Follower2</li>                            
-                        </a>
-                        <a href="#" target="_blank">
-                            <li class="list-group-item">Follower3</li>
-                        </a>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#" class="btn btn-primary">Previous</a>
-                        <a href="#" class="btn btn-primary">Next</a>
+        <% var user = user ; %>
+        <% if (user) { %>
+            <div class="container">
+                <div id="search-user-results">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src=<%= user.avatar_url %> alt="Card image cap">
+                        <div class="card-body">
+                            <a href=<%= user.html_url %> target="_blank">
+                                <h4 class="card-title"><%= user.login %></h4>
+                            </a>
+                            <p class="card-text"><%= user.name %></p>
+                            <p class="card-text"><%= user.followers %> followers</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <% followers.forEach(function(follower) { %>
+                                <a href=<%= follower.html_url %> target="_blank">
+                                    <!-- <img class="rounded-circle img-follower-avatar" src=<%= follower.avatar_url %> alt="Follower Avatar"> -->
+                                    <li class="list-group-item"><%= follower.login %></li>
+                                </a>
+                            <% }); %>
+
+                            <!-- <a href="#" target="_blank">
+                                <li class="list-group-item">Follower2</li>                            
+                            </a>
+                            <a href="#" target="_blank">
+                                <li class="list-group-item">Follower3</li>
+                            </a> -->
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="btn btn-primary">Previous</a>
+                            <a href="#" class="btn btn-primary">Next</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <% } %>
         <!-- END search results -->
 
     </main>
