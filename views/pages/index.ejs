@@ -22,7 +22,7 @@
                     <div class="col">
                         <form id="search-form" action="/search" method="POST">
                             <div class="input-group">
-                                <input type="query" name="username" id="search-user" class="form-control" placeholder="Search for github username..." aria-label="Search for github username...">
+                                <input type="query" name="username" id="search-user" class="form-control" placeholder="Search for github username..." aria-label="Search for github username..." value="<% if (locals.previousSearchUser) { %><%= previousSearchUser %><%}%>" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-secondary" type="submit">Search</button>
                                 </span>
@@ -51,23 +51,51 @@
                             <p class="card-text"><%= user.followers %> followers</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <% followers.forEach(function(follower) { %>
-                                <a href=<%= follower.html_url %> target="_blank">
-                                    <!-- <img class="rounded-circle img-follower-avatar" src=<%= follower.avatar_url %> alt="Follower Avatar"> -->
-                                    <li class="list-group-item"><%= follower.login %></li>
+                            <% for(var followerIndex = firstFollowerIndex; followerIndex <= lastFollowerIndex; followerIndex++) { %>
+                                <a href=<%= followers[followerIndex].html_url %> target="_blank">
+                                    <img class="card-img-top" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
+                                    <li class="list-group-item"><%= followerIndex + 1 %>. <%= followers[followerIndex].login %></li>
                                 </a>
-                            <% }); %>
-
-                            <!-- <a href="#" target="_blank">
-                                <li class="list-group-item">Follower2</li>                            
-                            </a>
-                            <a href="#" target="_blank">
-                                <li class="list-group-item">Follower3</li>
-                            </a> -->
+                            <% } %>
                         </ul>
                         <div class="card-body">
-                            <a href="#" class="btn btn-primary">Previous</a>
-                            <a href="#" class="btn btn-primary">Next</a>
+                            <!-- <a href="#" class="btn btn-primary">Previous</a> -->
+                            <!-- <a href="#" class="btn btn-primary">Next</a> -->
+                            <nav aria-label="Page navigation example">
+                                <% if (numberOfPages > 0) { %>
+                                    <ul class="pagination">
+                                        <!-- Previous Button -->
+                                        <% if (currentPage == 1) { %>
+                                            <li class="page-item disabled">
+                                                <a href="#" class="page-link">Previous</a>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="page-item">
+                                                <a href="/search/<%= previousSearchUser %>/<%= currentPage - 1 %>" class="btn btn-primary">Previous</a>
+                                            </li>
+                                        <% } %>
+                                        <!-- END Previous Button -->
+                                        <!-- Pages -->
+                                        <% for (var pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) { %>
+                                            <li class="page-item <% if (currentPage == pageNumber) {%>active<%}%>">
+                                                <a class="page-link" href="/search/<%= previousSearchUser %>/<%= pageNumber%>"><%= pageNumber %></a>
+                                            </li>
+                                        <% } %>
+                                        <!-- END Pages -->
+                                        <!-- Last Button -->
+                                        <% if (currentPage == numberOfPages) { %>
+                                            <li class="page-item disabled">
+                                                <a href="#" class="page-link">Next</a>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="page-item">
+                                                <a href="/search/<%= previousSearchUser %>/<%= currentPage + 1 %>" class="btn btn-primary">Next</a>
+                                            </li>
+                                        <% } %>
+                                        <!-- END Last Button -->
+                                    </ul>
+                                <% } %> 
+                            </nav>
                         </div>
                     </div>
                 </div>
