@@ -10,8 +10,6 @@ var ghApiUrl = 'https://api.github.com/users/';
 // Routes
 // POST: find new user
 router.post('/', function(req, res) {
-    // Debugging
-    console.log('POST / in search');
 
     // Get the username value from input field
     var username = req.body.username;
@@ -26,14 +24,12 @@ router.post('/', function(req, res) {
 
         // Request user from GitHub API call and process the response
         processUserRequest(process.argv[2], username).then(function(user) {
-            console.log("IN POST processUserRequest --> user:\n" + JSON.stringify(user, null, 4));
 
             // Total number of followers
             let numberOfFollowers = user.followers;
 
             // Request follower of user from GitHub API call and process the response
             processFollowersRequest(user, currentPage).then(function (followers) {
-                // console.log("IN POST processFollowersRequest --> followers:\n" + JSON.stringify(followers, null, 4));
 
                 // Render view using result
                 res.render('pages/index', {
@@ -52,8 +48,6 @@ router.post('/', function(req, res) {
 
 // GET: find followers of user from page
 router.get('/:username/:page', function(req, res) {
-    // Debugging
-    console.log('GET /search/:username='+ req.params.username + '/:page=' + req.params.page);
 
     // Get the username value from url params
     var username = req.params.username;
@@ -64,13 +58,12 @@ router.get('/:username/:page', function(req, res) {
 
     // Request user from GitHub API call and process the response
     processUserRequest(process.argv[2], username).then(function(user) {
-            
+
         // Total number of followers
         let numberOfFollowers = user.followers;
         
         // Request follower of user from GitHub API call and process the response
         processFollowersRequest(user, currentPage).then(function (followers) {
-            console.log("DONE -> processFollowersRequest.then \n" + JSON.stringify(followers, null, 4));
 
             // Render view using result
             res.render('pages/index', {
@@ -86,13 +79,14 @@ router.get('/:username/:page', function(req, res) {
 
 });
 
-// Process the request promises and return github api result
+// Process the request promises and return a user from github api
 function processUserRequest(token, username) {
     github.token = token;
     github.username = username;
     return github.getUser();
 }
 
+// Process the request promises and return a list of followers at the current page from github api
 function processFollowersRequest(username, currentPage) {
     let followersUrl = github.getFollowersUrl(username);
     return github.getFollowers(followersUrl, currentPage);
@@ -122,10 +116,12 @@ var github = {
         });
     }, 
 
+    // Returns the followers url of user
     getFollowersUrl: function(user) {
         return user.followers_url;
     },
 
+    // Returns the followers at the current page
     getFollowers: function(uri, currentPage) {
         return request({
             method: 'GET',

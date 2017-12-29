@@ -22,7 +22,7 @@
                     <div class="col">
                         <form id="search-form" action="/search" method="POST">
                             <div class="input-group">
-                                <input type="query" name="username" id="search-user" class="form-control" placeholder="Search for github username..." aria-label="Search for github username..." value="<% if (locals.previousSearchUser) { %><%= previousSearchUser %><%}%>" />
+                                <input type="query" name="username" id="search-user" class="form-control" placeholder="Try entering defunkt ..." aria-label="Try entering defunkt ..." value="<% if (locals.previousSearchUser) { %><%= previousSearchUser %><%}%>" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-secondary btn-custom" type="submit">Search</button>
                                 </span>
@@ -82,31 +82,40 @@
                             <% if (numberOfPages > 0) { %>
                                 <ul class="pagination justify-content-center">
                                     <!-- Previous Button -->
-                                    <% if (currentPage == 1) { %>
-                                        <li class="page-item disabled">
-                                            <a href="#" class="page-link">Previous</a>
-                                        </li>
-                                    <% } else { %>
+                                    <% if (currentPage != 1) { %>
                                         <li class="page-item">
-                                            <a href="/search/<%= previousSearchUser %>/<%= currentPage - 1 %>" class="page-link">Previous</a>
+                                            <a href="/search/<%= previousSearchUser %>/<%= currentPage - 1 %>" class="page-link"><i class="ion-ios-arrow-left"></i></a>
                                         </li>
                                     <% } %>
                                     <!-- END Previous Button -->
                                     <!-- Pages -->
-                                    <% for (var pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) { %>
+                                    <li class="page-item <% if (currentPage == 1) {%>active<%}%>">
+                                        <a class="page-link" href="/search/<%= previousSearchUser %>/1">1</a>
+                                    </li>
+                                    <% var pageNumber = (Number(currentPage) > 5 ? Number(currentPage) - 1 : 2) ; %>
+                                    <% if (pageNumber !== 2) { %> 
+                                        <li class="page-item disabled">
+                                            <a class="page-link">...</a>
+                                        </li>
+                                    <% } %>
+                                    <% for (; (pageNumber <= Number(currentPage) + 1) && (pageNumber < numberOfPages) ; pageNumber++) { %>
                                         <li class="page-item <% if (currentPage == pageNumber) {%>active<%}%>">
                                             <a class="page-link" href="/search/<%= previousSearchUser %>/<%= pageNumber%>"><%= pageNumber %></a>
                                         </li>
                                     <% } %>
-                                    <!-- END Pages -->
-                                    <!-- Last Button -->
-                                    <% if (currentPage == numberOfPages) { %>
+                                    <% if ( (pageNumber == Number(currentPage) + 2) && (pageNumber < numberOfPages) ) { %> 
                                         <li class="page-item disabled">
-                                            <a href="#" class="page-link">Next</a>
+                                            <a class="page-link">...</a>
                                         </li>
-                                    <% } else { %>
+                                    <% } %>
+                                    <li class="page-item <% if (currentPage == numberOfPages) {%>active<%}%>">
+                                        <a class="page-link" href="/search/<%= previousSearchUser %>/<%= numberOfPages %>"><%= numberOfPages %></a>
+                                    </li>
+                                    <!-- END Pages -->
+                                    <!-- Next Button -->
+                                    <% if (currentPage != numberOfPages) { %>
                                         <li class="page-item">
-                                            <a href="/search/<%= previousSearchUser %>/<%= currentPage + 1 %>" class="page-link">Next</a>
+                                            <a href="/search/<%= previousSearchUser %>/<%= currentPage + 1 %>" class="page-link"><i class="ion-ios-arrow-right"></i></a>
                                         </li>
                                     <% } %>
                                     <!-- END Last Button -->
