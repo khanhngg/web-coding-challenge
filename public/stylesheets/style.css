@@ -1,7 +1,66 @@
+/* GENERAL */
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
 }
 
-#search-user {
+.centered-text {
+    text-align: center;
 }
+
+.title {
+    padding: 2rem;
+    text-transform: uppercase;
+}
+
+.title h2 {
+    font-weight: 300;    
+}
+
+/* JUMBOTRON */
+.jumbotron {
+    color: #0F6177;
+    background-color: #fff;
+}
+
+/* BUTTONS */
+.btn-custom {
+    background-color: #4CD4B0;
+    border-color: #4CD4B0;
+}
+
+/* CARDS for user's profile */
+h4.card-text {
+    font-weight: 300;
+}
+
+.card-body {
+    background-color: #fefefe;
+}
+
+.card-user {
+    margin: 0 auto;
+    margin-bottom: 5rem;
+}
+
+.card-follower {
+    padding: 0rem 3rem;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+/* Small devices (landscape phones)*/
+@media (max-width: 576px) {  }
+
+/* Medium devices (tablets)*/
+@media (max-width: 768px) {  }
+
+/* Large devices (desktops)*/
+@media (max-width: 992px) {
+    .card-follower .card-body {
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Extra large devices (large desktops)*/
+@media (max-width: 1200px) {  }

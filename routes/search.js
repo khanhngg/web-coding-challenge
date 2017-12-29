@@ -16,34 +16,37 @@ router.post('/', function(req, res) {
     // Get the username value from input field
     var username = req.body.username;
 
-    // Max followers per page
-    let followersPerPage = 30;
-    let currentPage = 1;
+    // If empty input field, redirect to home page
+    if (!username) {
+        res.redirect('/');
+    } else {
+        // Max followers per page
+        let followersPerPage = 30;
+        let currentPage = 1;
 
-    processUserRequest(process.argv[2], username).then(function(user) {
-        processFollowersRequest(user, currentPage).then(function (followers) {
+        // Request user from GitHub API call and process the response
+        processUserRequest(process.argv[2], username).then(function(user) {
+            console.log("IN POST processUserRequest --> user:\n" + JSON.stringify(user, null, 4));
+
             // Total number of followers
-            let numberOfFollowers = followers.length;
+            let numberOfFollowers = user.followers;
 
-            // Position of first and last followers in current page
-            let firstFollowerIndex = 0;
-            let lastFollowerIndex = (firstFollowerIndex + followersPerPage ==  numberOfFollowers) ? numberOfFollowers - 1 : firstFollowerIndex + followersPerPage - 1;
+            // Request follower of user from GitHub API call and process the response
+            processFollowersRequest(user, currentPage).then(function (followers) {
+                // console.log("IN POST processFollowersRequest --> followers:\n" + JSON.stringify(followers, null, 4));
 
-            // Render view using result
-            res.render('pages/index', {
-                user: user,
-                followers: followers,
-                previousSearchUser: username,
-                currentPage: currentPage,
-                numberOfPages: Math.ceil(numberOfFollowers / followersPerPage),
-                firstFollowerIndex: firstFollowerIndex,
-                lastFollowerIndex: lastFollowerIndex,
-            }); 
+                // Render view using result
+                res.render('pages/index', {
+                    user: user,
+                    followers: followers,
+                    previousSearchUser: username,
+                    currentPage: currentPage,
+                    numberOfPages: Math.ceil(numberOfFollowers / followersPerPage),
+                }); 
+            });
+
         });
-
-
-
-    });
+    }
 
 });
 
@@ -59,20 +62,15 @@ router.get('/:username/:page', function(req, res) {
     let followersPerPage = 30;
     let currentPage = req.params.page || 1;
 
+    // Request user from GitHub API call and process the response
     processUserRequest(process.argv[2], username).then(function(user) {
-        // result = JSON.parse(result);
-        // console.log("IN processUserRequest: user = \n" + JSON.stringify(user, null, 4));
-
+            
+        // Total number of followers
+        let numberOfFollowers = user.followers;
+        
+        // Request follower of user from GitHub API call and process the response
         processFollowersRequest(user, currentPage).then(function (followers) {
-            // Total number of followers
-            let numberOfFollowers = followers.length;
-
-            // console.log("DONE -> processFollowersRequest.then followers.length=" + followers.length);
-            // console.log("DONE -> processFollowersRequest.then \n" + JSON.stringify(followers, null, 4));
-
-            // Position of first and last followers in current page
-            let firstFollowerIndex = ( followersPerPage * currentPage ) - followersPerPage;
-            let lastFollowerIndex = (firstFollowerIndex + followersPerPage - 1 >  numberOfFollowers) ? numberOfFollowers - 1 : firstFollowerIndex + followersPerPage - 1;
+            console.log("DONE -> processFollowersRequest.then \n" + JSON.stringify(followers, null, 4));
 
             // Render view using result
             res.render('pages/index', {
@@ -81,8 +79,6 @@ router.get('/:username/:page', function(req, res) {
                 previousSearchUser: username,
                 currentPage: currentPage,
                 numberOfPages: Math.ceil(numberOfFollowers / followersPerPage),
-                firstFollowerIndex: firstFollowerIndex,
-                lastFollowerIndex: lastFollowerIndex,
             }); 
         });
 
@@ -97,9 +93,9 @@ function processUserRequest(token, username) {
     return github.getUser();
 }
 
-function processFollowersRequest(username) {
+function processFollowersRequest(username, currentPage) {
     let followersUrl = github.getFollowersUrl(username);
-    return github.getFollowers(followersUrl);
+    return github.getFollowers(followersUrl, currentPage);
 }
 
 // GitHub Object
@@ -130,31 +126,18 @@ var github = {
         return user.followers_url;
     },
 
-    getFollowers: function(uri, followers) {
+    getFollowers: function(uri, currentPage) {
         return request({
             method: 'GET',
             json: true,
-            uri: uri,
+            uri: uri + '?page=' + currentPage,
             resolveWithFullResponse: true,
             headers: {
                 'Authorization': 'Bearer ' + github.token,
                 'User-Agent': 'khanhngg'
             },
         }).then(function (response) {
-            if (!followers) { // if followers didn't get passed, initialize new list of followers
-                followers = [];
-            }
-            
-            // combine followers of multiple pages
-            followers = followers.concat(response.body); 
-            // console.log("Current user has " + followers.length + " followers so far");
-
-            if (response.headers.link.split(",").filter(function(link){ return link.match(/rel="next"/) }).length > 0) {
-                // console.log("There is more.");
-                var next = new RegExp(/<(.*)>/).exec(response.headers.link.split(",").filter(function(link){ return link.match(/rel="next"/) })[0])[1];
-                return github.getFollowers(next, followers);
-            }
-
+            followers = response.body; 
             return followers;
         });
     },
