@@ -22,9 +22,9 @@
                     <div class="col">
                         <form id="search-form" action="/search" method="POST">
                             <div class="input-group">
-                                <input type="query" name="username" id="search-user" class="form-control" placeholder="Search for github username..." aria-label="Search for github username...">
+                                <input type="query" name="username" id="search-user" class="form-control" placeholder="Search for github username..." aria-label="Search for github username..." value="<% if (locals.previousSearchUser) { %><%= previousSearchUser %><%}%>" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="submit">Search</button>
+                                    <button class="btn btn-secondary btn-custom" type="submit">Search</button>
                                 </span>
                             </div>
                         </form>
@@ -40,37 +40,83 @@
         <% var user = user ; %>
         <% if (user) { %>
             <div class="container">
+                <!-- #search-user-results -->
                 <div id="search-user-results">
-                    <div class="card" style="width: 20rem;">
+                    <!-- Current user -->
+                    <div class="card card-user" style="width: 20rem;">
                         <img class="card-img-top" src=<%= user.avatar_url %> alt="Card image cap">
                         <div class="card-body">
+                            <h4 class="card-text"><%= user.name %></h4>
                             <a href=<%= user.html_url %> target="_blank">
-                                <h4 class="card-title"><%= user.login %></h4>
+                                <h5 class="card-title"><%= user.login %></h5>
                             </a>
-                            <p class="card-text"><%= user.name %></p>
-                            <p class="card-text"><%= user.followers %> followers</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <% followers.forEach(function(follower) { %>
-                                <a href=<%= follower.html_url %> target="_blank">
-                                    <!-- <img class="rounded-circle img-follower-avatar" src=<%= follower.avatar_url %> alt="Follower Avatar"> -->
-                                    <li class="list-group-item"><%= follower.login %></li>
-                                </a>
-                            <% }); %>
-
-                            <!-- <a href="#" target="_blank">
-                                <li class="list-group-item">Follower2</li>                            
-                            </a>
-                            <a href="#" target="_blank">
-                                <li class="list-group-item">Follower3</li>
-                            </a> -->
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-primary">Previous</a>
-                            <a href="#" class="btn btn-primary">Next</a>
+                            <p class="card-text">Followers <span class="badge badge-pill badge-primary"><%= user.followers %></span></p>
                         </div>
                     </div>
+                    <!-- END Current user -->
+                    <hr>
+                    <div class="centered-text title">
+                        <h2>List of Followers</h2>                        
+                    </div>
+                    <!-- Followers -->
+                    <ul class="list-group list-group-flush">
+                        <div class="container">
+                            <div class="row">
+                                <% for(var followerIndex = 0; followerIndex < followers.length; followerIndex++) { %>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-12 card-follower">
+                                        <img class="card-img" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
+                                        <div class="card-body">
+                                            <a href=<%= followers[followerIndex].html_url %> target="_blank">
+                                                <h6 class="card-title"><%= followers[followerIndex].login %></h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <% } %>  
+                            </div>
+                        </div>
+                    </ul>
+                    <!-- END Followers -->
+                    <!-- Paginations -->
+                    <div class="card-body">
+                        <nav aria-label="Page navigation">
+                            <% if (numberOfPages > 0) { %>
+                                <ul class="pagination justify-content-center">
+                                    <!-- Previous Button -->
+                                    <% if (currentPage == 1) { %>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">Previous</a>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="page-item">
+                                            <a href="/search/<%= previousSearchUser %>/<%= currentPage - 1 %>" class="page-link">Previous</a>
+                                        </li>
+                                    <% } %>
+                                    <!-- END Previous Button -->
+                                    <!-- Pages -->
+                                    <% for (var pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) { %>
+                                        <li class="page-item <% if (currentPage == pageNumber) {%>active<%}%>">
+                                            <a class="page-link" href="/search/<%= previousSearchUser %>/<%= pageNumber%>"><%= pageNumber %></a>
+                                        </li>
+                                    <% } %>
+                                    <!-- END Pages -->
+                                    <!-- Last Button -->
+                                    <% if (currentPage == numberOfPages) { %>
+                                        <li class="page-item disabled">
+                                            <a href="#" class="page-link">Next</a>
+                                        </li>
+                                    <% } else { %>
+                                        <li class="page-item">
+                                            <a href="/search/<%= previousSearchUser %>/<%= currentPage + 1 %>" class="page-link">Next</a>
+                                        </li>
+                                    <% } %>
+                                    <!-- END Last Button -->
+                                </ul>
+                            <% } %> 
+                        </nav>
+                    </div>
+                    <!-- END Paginations -->
                 </div>
+                <!-- END #search-user-results -->
             </div>
         <% } %>
         <!-- END search results -->
