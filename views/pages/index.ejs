@@ -24,7 +24,7 @@
                             <div class="input-group">
                                 <input type="query" name="username" id="search-user" class="form-control" placeholder="Try entering defunkt ..." aria-label="Try entering defunkt ..." value="<% if (locals.previousSearchUser) { %><%= previousSearchUser %><%}%>" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-secondary btn-custom" type="submit">Search</button>
+                                    <button class="btn btn-custom" type="submit">Search</button>
                                 </span>
                             </div>
                         </form>
@@ -44,14 +44,14 @@
                 <div id="search-user-results" class="row">
                     <!-- Current user -->
                     <div class="col-lg-3 col-md-4 col-sm-4 col-12">
-                        <div class="card card-user">
+                        <div class="card">
                             <img class="card-img-top" src=<%= user.avatar_url %> alt="Card image cap">
-                            <div class="card-body">
+                            <div class="card-body card-user">
                                 <h4 class="card-text"><%= user.name %></h4>
                                 <a href=<%= user.html_url %> target="_blank">
-                                    <h5 class="card-title"><%= user.login %></h5>
+                                    <h5 class="card-title"><i class="ion-social-github"></i> <%= user.login %></h5>
                                 </a>
-                                <p class="card-text">Followers <span class="badge badge-pill badge-primary"><%= user.followers %></span></p>    
+                                <p class="card-text">Followers <span class="badge badge-pill badge-custom"><%= user.followers %></span></p>    
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                                             <img class="card-img" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
                                             <div class="card-body">
                                                 <a href=<%= followers[followerIndex].html_url %> target="_blank">
-                                                    <h6 class="card-title"><%= followers[followerIndex].login %></h6>
+                                                    <h6 class="card-title"><i class="ion-social-github"></i> <%= followers[followerIndex].login %></h6>
                                                 </a>
                                             </div>
                                         </div>
