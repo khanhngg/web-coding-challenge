@@ -23,8 +23,7 @@ router.post('/', function(req, res) {
         let currentPage = 1;
 
         // Request user from GitHub API call and process the response
-        processUserRequest(process.argv[2], username).then(function(user) {
-
+        processUserRequest(process.env.GH_TOKEN, username).then(function(user) {
             // Total number of followers
             let numberOfFollowers = user.followers;
 
@@ -57,7 +56,7 @@ router.get('/:username/:page', function(req, res) {
     let currentPage = req.params.page || 1;
 
     // Request user from GitHub API call and process the response
-    processUserRequest(process.argv[2], username).then(function(user) {
+    processUserRequest(process.env.GH_TOKEN, username).then(function(user) {
 
         // Total number of followers
         let numberOfFollowers = user.followers;

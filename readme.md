@@ -3,7 +3,7 @@ Shipt Coding Challenge
 
 
 #### GitHub Followers 
-* [Link to the hosted application (to be updated).](#)
+* Link to the hosted application: [https://gh-followers-finder.herokuapp.com](https://gh-followers-finder.herokuapp.com)
 
 **Description**
 A service that allows for a user to search for a GitHub username. On a successful search return, it will display the user's GitHub handle, follower count, and a list of the user's followers.
@@ -52,6 +52,6 @@ Links
 
 * **Resume** : [Resume](#)
 
-* **Portfolio** : [Portfolio](#)
+* **Portfolio** : [Portfolio](https://khanhngg.github.io/)
 
-* **Hosted Application** : [Shipt Coding Challenge](#)
+* **Hosted Application** : [https://gh-followers-finder.herokuapp.com/](https://gh-followers-finder.herokuapp.com/)
