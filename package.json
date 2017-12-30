@@ -4,7 +4,8 @@
   "description": "A service that allows for a user to search for a GitHub username. On a successful search return, it will display the user's GitHub handle, follower count, and a list of the user's followers.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "Khanh Nguyen",
   "license": "ISC",
@@ -13,5 +14,9 @@
     "express": "^4.16.2",
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khanhngg/web-coding-challenge"
   }
 }

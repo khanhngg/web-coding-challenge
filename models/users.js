@@ -1,6 +1,0 @@
-// Dependencies
-
-// Schema
- 
-
-// Return model

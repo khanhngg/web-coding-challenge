@@ -2,7 +2,17 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
+    color: #4A5459;
+}
+
+a {
+    color: rgb(52, 73, 94);
+}
+
+a:hover {
+    color: rgb(46, 204, 113);
+    text-decoration: none;
 }
 
 .centered-text {
@@ -14,46 +24,69 @@ body {
     text-transform: uppercase;
 }
 
-.title h2 {
+.title h4 {
     font-weight: 300;    
+}
+
+/* NAV */
+.navbar-light .navbar-nav .nav-link:link,
+.navbar-light .navbar-nav .nav-link:visited,
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:active {
+    color: #fff;
+}
+
+#navbarSupportedContent {
+    margin: 9px;
 }
 
 /* JUMBOTRON */
 .jumbotron {
-    color: #0F6177;
     background-color: #fff;
 }
 
 /* BUTTONS */
 .btn-custom {
-    background-color: #4CD4B0;
-    border-color: #4CD4B0;
+    background-color: rgb(46, 204, 113);
+    border-color: rgb(46, 204, 113);
+    color: #fff;
+    transition: background-color .15s ease-in-out, 
+                border-color .15s ease-in-out,
+                box-shadow .15s ease-in-out;
 }
 
-/* CARDS for user's profile */
+.btn-custom:hover {
+    background-color: rgb(39, 174, 96);
+    border-color: rgb(39, 174, 96);
+    color: #fff;
+}
+
+/* CARDS for user and followers' profile */
 h4.card-text {
     font-weight: 300;
 }
 
 .card-body {
-    background-color: #fefefe;
+    text-align: center;
 }
 
 .card-user {
-    margin: 0 auto;
-    margin-bottom: 5rem;
+    background-color: #fefefe;
 }
 
 .card-follower {
     padding: 0rem 3rem;
 }
 
-/* RESPONSIVE BREAKPOINTS */
-/* Small devices (landscape phones)*/
-@media (max-width: 576px) {  }
+/* BADGE */
+.badge-custom {
+    background-color: rgb(46, 204, 113);
+    color: #fff;
+}
 
-/* Medium devices (tablets)*/
-@media (max-width: 768px) {  }
+/* RESPONSIVE BREAKPOINTS */
+/* Extra large devices (large desktops)*/
+@media (max-width: 1200px) {  }
 
 /* Large devices (desktops)*/
 @media (max-width: 992px) {
@@ -62,5 +95,16 @@ h4.card-text {
     }
 }
 
-/* Extra large devices (large desktops)*/
-@media (max-width: 1200px) {  }
+/* Medium devices (tablets)*/
+@media (max-width: 768px) {  
+    .container {
+        max-width: 700px;
+    }
+}
+
+/* Small devices (landscape phones)*/
+@media (max-width: 576px) {  
+    .container {
+        max-width: 540px;
+    }
+}
