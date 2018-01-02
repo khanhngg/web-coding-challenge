@@ -1,0 +1,10 @@
+<% for(var followerIndex = 0; followerIndex < followers.length; followerIndex++) { %>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
+        <a href=<%= followers[followerIndex].html_url %> target="_blank">
+            <img class="card-img" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
+            <div class="card-body">
+                    <h6 class="card-title"><i class="ion-social-github"></i> <%= followers[followerIndex].login %></h6>
+            </div>
+        </a>
+    </div>
+<% } %>
