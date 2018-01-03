@@ -32,6 +32,10 @@ $(document).ready(function(){
                 if (nextPageNumber >= totalPages) {
                     $('#btn-load-more').hide();
                 }
+
+                // Update the text showing the number of results
+                var numberOfResults = Number(currentPage) * 30;
+                $('span#text-result').text('test');
             });
         }
 

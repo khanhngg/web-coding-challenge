@@ -32,13 +32,27 @@
                 </div>
                 <!-- END SEARCH BAR -->
             </div>
+
+            <% var user = user ; %>
+            <% if (user) { %>
+            
+            <!-- Display number of results -->
+            <div class="container">
+                <p>
+                    <% if (numberOfPages < 1) { %>
+                        Found 0 followers
+                    <% } else { %>
+                        Showing <span id="text-result"><%= followers.length %></span> out of <%= user.followers %> followers
+                    <% } %>
+                </p>
+            </div>
+            <!-- END Display number of results -->
+
             <!-- END .container  -->
         </div>
         <!-- END .jumbotron -->
 
         <!-- Search results -->
-        <% var user = user ; %>
-        <% if (user) { %>
             <div class="container">
                 <!-- #search-user-results -->
                 <div id="search-user-results" class="row">
@@ -58,44 +72,46 @@
                     <!-- END Current user -->
 
                     <div class="col-lg-9 col-md-8 col-sm-8 col-12">
-                        <!-- Header -->
-                        <div class="centered-text title">
-                            <h4>List of Followers</h4>                        
-                        </div>
-                        <!-- END Header -->
-
-                        <!-- Followers -->
-                        <ul class="list-group list-group-flush">
-                            <div class="container">
-                                <div class="row" id="container-followers">
-                                    <% for(var followerIndex = 0; followerIndex < followers.length; followerIndex++) { %>
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
-                                            <a href=<%= followers[followerIndex].html_url %> target="_blank">
-                                                <img class="card-img" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
-                                                <div class="card-body">
-                                                        <h6 class="card-title"><i class="fa fa-github" aria-hidden="true"></i> <%= followers[followerIndex].login %></h6>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    <% } %>
-                                </div>
+                        <% if ( numberOfPages >= 1 ) { %>
+                            <!-- Header -->
+                            <div class="centered-text title">
+                                <h4>List of Followers</h4>
                             </div>
-                        </ul>
-                        <!-- END Followers -->
-                        
-                        <!-- Load More Button -->
-                        <% if ( numberOfPages != 1 ) { %>
-                            <div class="container btn-container">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 col-sm-6 col-6 centered" id="container-load-more" data-page="1" data-total-pages="<%= numberOfPages %>">
-                                        <a id="btn-load-more" class="btn btn-custom col" href="" role="button">LOAD MORE</a>
+                            <!-- END Header -->
+
+                            <!-- Followers -->
+                            <ul class="list-group list-group-flush">
+                                <div class="container">
+                                    <div class="row" id="container-followers">
+                                        <% for(var followerIndex = 0; followerIndex < followers.length; followerIndex++) { %>
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
+                                                <a href=<%= followers[followerIndex].html_url %> target="_blank">
+                                                    <img class="card-img" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
+                                                    <div class="card-body">
+                                                            <h6 class="card-title"><i class="fa fa-github" aria-hidden="true"></i> <%= followers[followerIndex].login %></h6>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        <% } %>
                                     </div>
                                 </div>
-                            </div>
-                        <% } %>
-                        <!-- END Load More Button -->
-                    </div>
+                            </ul>
+                            <!-- END Followers -->
+                            
+                            <% if ( numberOfPages > 1 ) { %>
+                                <!-- Load More Button -->
+                                <div class="container btn-container">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-6 centered" id="container-load-more" data-page="1" data-total-pages="<%= numberOfPages %>">
+                                            <a id="btn-load-more" class="btn btn-custom col" href="" role="button">LOAD MORE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END Load More Button -->
+                            <% } %>
 
+                        <% } %>
+                    </div>
                 </div>
                 <!-- END #search-user-results -->
             </div>
