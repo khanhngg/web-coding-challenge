@@ -87,12 +87,21 @@ h4.card-text {
     text-align: center;
 }
 
+.card-body {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.card-title {
+    overflow-wrap: break-word;
+}
+
 .card-user {
     background-color: #fefefe;
 }
 
 .card-follower {
-    padding: 0rem 3rem;
+    padding: 0rem 2rem;
 }
 
 /* BADGE */
