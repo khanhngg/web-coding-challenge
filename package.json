@@ -18,8 +18,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/khanhngg/web-coding-challenge"
-  },
-  "engines": {
-    "node": "8.9.1"
-  },
+  }
 }
