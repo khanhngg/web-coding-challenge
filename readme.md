@@ -38,7 +38,6 @@ The web application shall be able to handle serving and displaying a large list 
 
 	```
 	https://api.github.com/users/octocat
-
 	```
 
 - **Response of getting a user**
@@ -54,14 +53,12 @@ The web application shall be able to handle serving and displaying a large list 
 	  "followers_url": "https://api.github.com/users/octocat/followers",
 	  ...
 	}
-	
 	```
 
 - **Request to GET a user's followers using pagination**
 
 	```
 	https://api.github.com/users/octocat/followers?page=1
-	
 	```
 
 - **Response of getting a user's followers using pagination**
@@ -78,7 +75,6 @@ The web application shall be able to handle serving and displaying a large list 
 	  },
 	  ...
 	]
-	
 	```
 
 
@@ -108,7 +104,6 @@ A light-weight web development framework for Node.js that helps organize my appl
 router.get('/', function(req, res) {
     res.render('pages/index');
 });
-
 ```
 
 
@@ -122,7 +117,6 @@ Handles user's clicking event for the `LOAD MORE` button by making AJAX GET requ
 
 ``` javascript
 url: '/search/' + $('#search-user').val() + '/' + nextPageNumber
-
 ```
 	
 - **Bootstrap**
@@ -132,9 +126,8 @@ I'm using the latest version `v4.0.0-beta.3` to utilize their responsive grid sy
 - **EJS (Embedded JavaScript)** 
 This templating engine, which is also a node module, allows the frontend to display data from the backend's response and reuse different UI components/pages. This is helpful in rendering the list of followers by simply iterating through the array of followers objects that got passed in by the backend.
 
-```javascript
+```html
 <h4 class="card-text"><%= user.name %></h4>
-
 ```
 
 ```javascript
