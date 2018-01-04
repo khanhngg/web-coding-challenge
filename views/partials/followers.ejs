@@ -8,3 +8,17 @@
         </a>
     </div>
 <% } %>
+
+<!-- Display number of results -->
+<div class="container">
+    <p id="text-result-more" class="centered-text">
+        Showing <span id="text-followers-result-more">
+        <% if (currentPage < numberOfPages) { %>
+            <%= currentPage * 30 %>
+        <% } else { %>
+            <%= user.followers %>
+        <% } %>
+        </span> out of <%= user.followers %> followers
+    </p>
+</div>
+<!-- END Display number of results -->
