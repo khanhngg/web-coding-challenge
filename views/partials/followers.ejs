@@ -1,0 +1,24 @@
+<% for(var followerIndex = 0; followerIndex < followers.length; followerIndex++) { %>
+    <div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
+        <a href=<%= followers[followerIndex].html_url %> target="_blank">
+            <img class="card-img" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
+            <div class="card-body">
+                    <h6 class="card-title"><i class="ion-social-github"></i> <%= followers[followerIndex].login %></h6>
+            </div>
+        </a>
+    </div>
+<% } %>
+
+<!-- Display number of results -->
+<div class="container">
+    <p id="text-result-more" class="centered-text">
+        Showing <span id="text-followers-result-more">
+        <% if (currentPage < numberOfPages) { %>
+            <%= currentPage * 30 %>
+        <% } else { %>
+            <%= user.followers %>
+        <% } %>
+        </span> out of <%= user.followers %> followers
+    </p>
+</div>
+<!-- END Display number of results -->

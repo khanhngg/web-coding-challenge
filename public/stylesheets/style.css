@@ -28,6 +28,10 @@ a:hover {
     font-weight: 300;    
 }
 
+.centered {
+    margin: 0 auto;
+}
+
 /* NAV */
 .navbar-light .navbar-nav .nav-link:link,
 .navbar-light .navbar-nav .nav-link:visited,
@@ -59,6 +63,15 @@ a:hover {
     background-color: rgb(39, 174, 96);
     border-color: rgb(39, 174, 96);
     color: #fff;
+}
+
+.btn-container {
+    padding-bottom: 1rem;
+}
+
+#container-load-more {
+    padding-top: 1.2rem;
+    padding-bottom: 5rem;
 }
 
 /* CARDS for user and followers' profile */

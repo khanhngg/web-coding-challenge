@@ -47,6 +47,7 @@ router.post('/', function(req, res) {
 });
 
 // GET: find followers of user from page
+// router.get('/', function(req, res) {
 router.get('/:username/:page', function(req, res) {
 
     // Get the username value from url params
@@ -66,13 +67,13 @@ router.get('/:username/:page', function(req, res) {
         processFollowersRequest(user, currentPage).then(function (followers) {
 
             // Render view using result
-            res.render('pages/index', {
+            res.render('partials/followers', {
                 user: user,
-                followers: followers,
-                previousSearchUser: username,
                 currentPage: currentPage,
                 numberOfPages: Math.ceil(numberOfFollowers / followersPerPage),
+                followers: followers,
             }); 
+
         });
 
     });
