@@ -23,16 +23,13 @@ router.post('/', function(req, res) {
         let currentPage = 1;
 
         // Request user from GitHub API call and process the response
-        processUserRequest(process.env.GH_TOKEN, username).then(function(user, error) {
-            
-            console.log(">> ERROR " + error);
+        processUserRequest(process.env.GH_TOKEN, username).then(function(user) {
 
             // Total number of followers
             let numberOfFollowers = user.followers;
 
             // Request follower of user from GitHub API call and process the response
             processFollowersRequest(user, currentPage).then(function (followers) {
-
                 // Render view using result
                 res.render('pages/index', {
                     user: user,
@@ -43,6 +40,10 @@ router.post('/', function(req, res) {
                 }); 
             });
 
+        }).catch(function(error) {
+            res.render('pages/index', {
+                previousSearchUser: username,
+            }); 
         });
     }
 
@@ -75,11 +76,8 @@ router.get('/:username/:page', function(req, res) {
                 numberOfPages: Math.ceil(numberOfFollowers / followersPerPage),
                 followers: followers,
             });
-
         });
-
     });
-
 });
 
 // Process the request promises and return a user from github api
@@ -112,11 +110,12 @@ var github = {
             method: 'GET',
             json: true,
             uri: github.url + github.username,
-            resolveWithFullResponse: true,
             headers: {
                 'Authorization': 'Bearer ' + github.token,
                 'User-Agent': 'khanhngg'
             },
+        }).catch(function (error) {
+            console.log("getUser ERROR: " + error);
         });
     }, 
 
@@ -139,6 +138,8 @@ var github = {
         }).then(function (response) {
             followers = response.body; 
             return followers;
+        }).catch(function (error) {
+            console.log("getFollowers ERROR: " + error);
         });
     },
 

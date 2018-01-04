@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="col-lg-9 col-md-8 col-sm-8 col-12">
-                    <% if ( numberOfPages < 1 ) { %>
+                    <% if ( numberOfPages < 1 || followers == undefined ) { %>
                         <% include ../partials/currentFollowersCount %>
                     <% } else { %>
                         <!-- Header -->
@@ -66,6 +66,8 @@
             </div>
             <!-- END #search-user-results -->
         </div>
+        <% } else if(locals.previousSearchUser != undefined && user == undefined) { %>
+            <% include ../partials/userNotFound %>
         <% } %>
         <!-- END search results -->
 
