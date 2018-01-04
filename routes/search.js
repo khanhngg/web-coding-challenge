@@ -1,8 +1,8 @@
 // Dependencies
 var express = require('express');
 var router = express.Router();
-// var request = require('request');
-var request = require('request-promise');
+var request = require('request');
+var requestPromise = require('request-promise');
 
 // GitHub User API URL
 var ghApiUrl = 'https://api.github.com/users/';
@@ -30,7 +30,6 @@ router.post('/', function(req, res) {
 
             // Request follower of user from GitHub API call and process the response
             processFollowersRequest(user, currentPage).then(function (followers) {
-
                 // Render view using result
                 res.render('pages/index', {
                     user: user,
@@ -41,6 +40,10 @@ router.post('/', function(req, res) {
                 }); 
             });
 
+        }).catch(function(error) {
+            res.render('pages/index', {
+                previousSearchUser: username,
+            }); 
         });
     }
 
@@ -72,12 +75,9 @@ router.get('/:username/:page', function(req, res) {
                 currentPage: currentPage,
                 numberOfPages: Math.ceil(numberOfFollowers / followersPerPage),
                 followers: followers,
-            }); 
-
+            });
         });
-
     });
-
 });
 
 // Process the request promises and return a user from github api
@@ -106,7 +106,7 @@ var github = {
 
     // Returns a user as a reponse from GET request to gh api 
     getUser: function() {
-        return request({
+        return requestPromise({
             method: 'GET',
             json: true,
             uri: github.url + github.username,
@@ -114,6 +114,8 @@ var github = {
                 'Authorization': 'Bearer ' + github.token,
                 'User-Agent': 'khanhngg'
             },
+        }).catch(function (error) {
+            console.log("getUser ERROR: " + error);
         });
     }, 
 
@@ -124,7 +126,7 @@ var github = {
 
     // Returns the followers at the current page
     getFollowers: function(uri, currentPage) {
-        return request({
+        return requestPromise({
             method: 'GET',
             json: true,
             uri: uri + '?page=' + currentPage,
@@ -136,6 +138,8 @@ var github = {
         }).then(function (response) {
             followers = response.body; 
             return followers;
+        }).catch(function (error) {
+            console.log("getFollowers ERROR: " + error);
         });
     },
 

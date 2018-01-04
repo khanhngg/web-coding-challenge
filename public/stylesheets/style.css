@@ -116,6 +116,11 @@ h4.card-text {
     padding-top: 1rem;
 }
 
+/* ALERT */
+.alert-warning{
+    width: 85%;
+}
+
 /* RESPONSIVE BREAKPOINTS */
 /* Extra large devices (large desktops)*/
 @media (max-width: 1200px) {  }

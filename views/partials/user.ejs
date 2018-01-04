@@ -1,0 +1,12 @@
+<!-- Current user -->
+<div class="card">
+    <img class="card-img-top" src=<%= user.avatar_url %> alt="Card image cap">
+    <div class="card-body card-user">
+        <h4 class="card-text"><%= user.name %></h4>
+        <a href="<%= user.html_url %>" target="_blank">
+            <h5 class="card-title"><i class="fa fa-github" aria-hidden="true"></i> <%= user.login %></h5>
+        </a>
+        <p class="card-text">Followers <span class="badge badge-pill badge-custom"><%= user.followers %></span></p>    
+    </div>
+</div>
+<!-- END Current user -->
