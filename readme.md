@@ -10,7 +10,7 @@ A service that allows for a user to search for a GitHub username. On a successfu
 
 Running Locally
 ---------------------------------------
-Assuming you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
+Assuming you have [Node.js](http://nodejs.org/) installed.
 
 ```sh
 git clone git@github.com:khanhngg/web-coding-challenge.git
