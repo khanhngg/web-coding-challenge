@@ -67,6 +67,9 @@ router.get('/:username/:page', function(req, res) {
 
             // Render view using result
             res.render('partials/followers', {
+                user: user,
+                currentPage: currentPage,
+                numberOfPages: Math.ceil(numberOfFollowers / followersPerPage),
                 followers: followers,
             }); 
 

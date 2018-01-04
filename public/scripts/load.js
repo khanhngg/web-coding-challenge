@@ -22,20 +22,24 @@ $(document).ready(function(){
                 type: 'GET',
                 contentType: 'application/json',
             }).done(function (result) {
+                // Remove the previous text result
+                $('p#text-result-more').remove();
+
+                // Remove the old text result
+                $('p#text-result').remove();
+
                 // Append new users from next page
                 $('#container-followers').append(result);
+                // console.log("RESULT:\n" + JSON.stringify(result, null, 4));
 
                 // Update next page number
                 $('#container-load-more').attr('data-page', nextPageNumber);
 
-                // Hide the load more button when gets to last page
+                // When reach last page
                 if (nextPageNumber >= totalPages) {
-                    $('#btn-load-more').hide();
+                    // Hide the load more button when gets to last page
+                    $('#container-load-more').remove();
                 }
-
-                // Update the text showing the number of results
-                var numberOfResults = Number(currentPage) * 30;
-                $('span#text-result').text('test');
             });
         }
 

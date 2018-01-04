@@ -34,18 +34,16 @@
             </div>
 
             <% var user = user ; %>
+
             <% if (user) { %>
-            
+
             <!-- Display number of results -->
+            <% var currentPage = currentPage; %>
+            <% if (numberOfPages < 1) { %>
             <div class="container">
-                <p>
-                    <% if (numberOfPages < 1) { %>
-                        Found 0 followers
-                    <% } else { %>
-                        Showing <span id="text-result"><%= followers.length %></span> out of <%= user.followers %> followers
-                    <% } %>
-                </p>
+                <p id="text-result" class="centered-text">Found 0 followers</p>
             </div>
+            <% } %>
             <!-- END Display number of results -->
 
             <!-- END .container  -->
@@ -97,6 +95,21 @@
                                 </div>
                             </ul>
                             <!-- END Followers -->
+                            
+                            <!-- Display number of results -->
+                            <div class="container">
+                                <p id="text-result" class="centered-text">
+                                    Showing <span id="text-followers-result">
+                                    <% var currentPage = currentPage; %>
+                                    <% if (currentPage * 30 < user.followers) { %>
+                                        <%= currentPage * 30 %>
+                                    <% } else { %>
+                                        <%= user.followers %>
+                                    <% } %>
+                                    </span> out of <%= user.followers %> followers
+                                </p>
+                            </div>
+                            <!-- END Display number of results -->
                             
                             <% if ( numberOfPages > 1 ) { %>
                                 <!-- Load More Button -->
