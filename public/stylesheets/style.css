@@ -15,6 +15,10 @@ a:hover {
     text-decoration: none;
 }
 
+.jumbotron {
+    padding-bottom: 1rem;
+}
+
 .centered-text {
     text-align: center;
 }
@@ -95,6 +99,12 @@ h4.card-text {
 .badge-custom {
     background-color: rgb(46, 204, 113);
     color: #fff;
+}
+
+/* TEXT SHOWING NUMBER OF RESULTS */
+#text-result {
+    padding-bottom: 2rem;
+    padding-top: 1rem;
 }
 
 /* RESPONSIVE BREAKPOINTS */
