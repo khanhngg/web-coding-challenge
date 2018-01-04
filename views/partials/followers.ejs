@@ -1,13 +1,13 @@
-<% for(var followerIndex = 0; followerIndex < followers.length; followerIndex++) { %>
-    <div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
-        <a href=<%= followers[followerIndex].html_url %> target="_blank">
-            <img class="card-img" src=<%= followers[followerIndex].avatar_url %> alt="follower avatar">
-            <div class="card-body">
-                    <h6 class="card-title"><i class="ion-social-github"></i> <%= followers[followerIndex].login %></h6>
-            </div>
-        </a>
-    </div>
-<% } %>
+<% followers.forEach(function(follower) { %>
+<div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
+    <a href=<%= follower.html_url %> target="_blank">
+        <img class="card-img" src=<%= follower.avatar_url %> alt="follower avatar">
+        <div class="card-body">
+            <h6 class="card-title"><i class="fa fa-github" aria-hidden="true"></i> <%= follower.login %></h6>
+        </div>
+    </a>
+</div>
+<% }); %>
 
 <!-- Display number of results -->
 <div class="container">
