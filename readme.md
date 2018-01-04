@@ -94,11 +94,9 @@ Technical Specs
 
 ### BACKEND
 
-- **Node.js**
-This JavaScript server framework allows me to easily set up a web application that can handle event-based interactions and routing for the backend.
+- **Node.js**: This JavaScript server framework allows me to easily set up a web application that can handle event-based interactions and routing for the backend.
 	
-- **Express.js**
-A light-weight web development framework for Node.js that helps organize my application into a MVC architecture. In other words, it allows me to manage the routes, handle requests, and render views.
+- **Express.js**: A light-weight web development framework for Node.js that helps organize my application into a MVC architecture. In other words, it allows me to manage the routes, handle requests, and render views.
 
 ```javascript
 router.get('/', function(req, res) {
@@ -109,28 +107,24 @@ router.get('/', function(req, res) {
 
 
 ### FRONTEND
-- **HTML/CSS**
-Besides the basic DOM structure and styling, I'm also using the `data-*` attribute to keep track of the pagination that backend can use to request GitHub API specific pages of followers.
+- **HTML/CSS**: Besides the basic DOM structure and styling, I'm also using the `data-*` attribute to keep track of the pagination that backend can use to request GitHub API specific pages of followers.
 
-- **JavaScript / jQuery**
-Handles user's clicking event for the `LOAD MORE` button by making AJAX GET requests to the backend route `/search`
+- **JavaScript / jQuery**: Handles user's clicking event for the `LOAD MORE` button by making AJAX GET requests to the backend route `/search`
 
 ``` javascript
 url: '/search/' + $('#search-user').val() + '/' + nextPageNumber
 ```
 	
-- **Bootstrap**
-I'm using the latest version `v4.0.0-beta.3` to utilize their responsive grid system for layout and necessary UI components such as **`Input Group`** for the search bar or **`Card`** for the user and followers' thumbnails.
+- **Bootstrap**: I'm using the latest version `v4.0.0-beta.3` to utilize their responsive grid system for layout and necessary UI components such as **`Input Group`** for the search bar or **`Card`** for the user and followers' thumbnails.
 
 
-- **EJS (Embedded JavaScript)** 
-This templating engine, which is also a node module, allows the frontend to display data from the backend's response and reuse different UI components/pages. This is helpful in rendering the list of followers by simply iterating through the array of followers objects that got passed in by the backend.
+- **EJS (Embedded JavaScript)**: This templating engine, which is also a node module, allows the frontend to display data from the backend's response and reuse different UI components/pages. This is helpful in rendering the list of followers by simply iterating through the array of followers objects that got passed in by the backend.
 
 ```html
 <h4 class="card-text"><%= user.name %></h4>
 ```
 
-```javascript
+```html
 <% followers.forEach(function(follower) { %>
     <img class="card-img" src=<%= follower.avatar_url %> alt="follower avatar">
 <% }); %>
