@@ -37,15 +37,6 @@
 
             <% if (user) { %>
 
-            <!-- Display number of results -->
-            <% var currentPage = currentPage; %>
-            <% if (numberOfPages < 1) { %>
-            <div class="container">
-                <p id="text-result" class="centered-text">Found 0 followers</p>
-            </div>
-            <% } %>
-            <!-- END Display number of results -->
-
             <!-- END .container  -->
         </div>
         <!-- END .jumbotron -->
@@ -70,6 +61,15 @@
                     <!-- END Current user -->
 
                     <div class="col-lg-9 col-md-8 col-sm-8 col-12">
+                        <!-- Display number of results -->
+                        <% var currentPage = currentPage; %>
+                        <% if (numberOfPages < 1) { %>
+                        <div class="container">
+                            <p id="text-result" class="centered-text">Found 0 followers</p>
+                        </div>
+                        <% } %>
+                        <!-- END Display number of results -->
+                        
                         <% if ( numberOfPages >= 1 ) { %>
                             <!-- Header -->
                             <div class="centered-text title">
