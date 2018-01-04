@@ -1,24 +1,20 @@
-<% followers.forEach(function(follower) { %>
-<div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
-    <a href=<%= follower.html_url %> target="_blank">
-        <img class="card-img" src=<%= follower.avatar_url %> alt="follower avatar">
-        <div class="card-body">
-            <h6 class="card-title"><i class="fa fa-github" aria-hidden="true"></i> <%= follower.login %></h6>
+<!-- Followers -->
+<ul class="list-group list-group-flush">
+    <div class="container">
+        <div class="row" id="container-followers">
+            <% followers.forEach(function(follower) { %>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-6 card-follower">
+                <a href=<%= follower.html_url %> target="_blank">
+                    <img class="card-img" src=<%= follower.avatar_url %> alt="follower avatar">
+                    <div class="card-body">
+                        <h6 class="card-title"><i class="fa fa-github" aria-hidden="true"></i> <%= follower.login %></h6>
+                    </div>
+                </a>
+            </div>
+            <% }); %>        
         </div>
-    </a>
-</div>
-<% }); %>
+    </div>
+</ul>
+<!-- END Followers -->
 
-<!-- Display number of results -->
-<div class="container">
-    <p id="text-result-more" class="centered-text">
-        Showing <span id="text-followers-result-more">
-        <% if (currentPage < numberOfPages) { %>
-            <%= currentPage * 30 %>
-        <% } else { %>
-            <%= user.followers %>
-        <% } %>
-        </span> out of <%= user.followers %> followers
-    </p>
-</div>
-<!-- END Display number of results -->
+<% include currentFollowersCount %>
