@@ -177,7 +177,7 @@ Links
 
 * **GitHub API** : [GitHub API](https://developer.github.com/v3/)
 
-* **Resume** : [Resume](#)
+* **Resume** : [Resume](https://drive.google.com/open?id=1ghmmPbFrndUv041Kq3p4nnfRl80n3IVu)
 
 * **Portfolio** : [Portfolio](https://khanhngg.github.io/)
 
